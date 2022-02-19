@@ -1,0 +1,11 @@
+{
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 99,
+    "python.linting.flake8Args": [
+        "--max-line-length=99",
+        "--min-line-length=80",
+    ],
+    "python.dataScience.sendSelectionToInteractiveWindow": true,
+}
