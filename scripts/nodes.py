@@ -26,6 +26,7 @@ class Point:
         self.x,self.y,self.z = self.coordinates
         self.material = material
 
+
 class Node:
 
     def __init__(self,
@@ -63,15 +64,39 @@ class Beam:
         self.name = name 
         if 'node1' in kwargs:
             self.node1 = kwargs['node1']
+            self.node1.forces = [0,0,0]
         if 'node2' in kwargs:
             self.node2 = kwargs['node2']
+            self.node2.forces = [0,0,0]
         if 'length' in kwargs:
             self.length = kwargs['length']
         else:
             self.length = self.get_beam_length()
 
+        self.x_total = 0
+        self.y_total = 0
+        self.z_total = 0
 
-        # self.stable_static_equilibrium = self.is_in_stable_equllibrium()
+        self.stable_static_equilibrium = None
+        if self.node1 and self.node2:
+            self.stable_static_equilibrium = self.is_in_stable_equllibrium()
+
+        self._get_net_forces()
+
+    def _get_net_forces_in_dir(self,_dir):
+        
+        dict_dir = {'x':0,'y':1,'z':2}
+
+        forces_in_dir = list(zip(
+            self.node1.forces,self.node2.forces))[dict_dir[_dir]]
+        
+        sum_forces_in_dir = sum(forces_in_dir)
+
+        return sum_forces_in_dir
+
+    def _get_net_forces(self):
+        self.net_forces = sum(
+            [ self._get_net_forces_in_dir(i) for i in ['x','y','z']])
 
     def get_beam_length(self):
 
@@ -85,31 +110,60 @@ class Beam:
         
         return np.round(length,tol)
 
+
+
+    def is_in_x_equllibrium(self):
+        net_forces_in_x = self._get_net_forces_in_dir('x')
+        if net_forces_in_x:
+            self.x_total = net_forces_in_x
+            is_in_x_equllibrium = False
+        else:
+            self.x_total = net_forces_in_x
+            is_in_x_equllibrium = True
+        
+        return is_in_x_equllibrium
+
+    def is_in_y_equllibrium(self):
+        net_forces_in_y =  self._get_net_forces_in_dir('y')
+        if net_forces_in_y:
+            self.y_total = net_forces_in_y
+            is_in_y_equllibrium = False
+        else:
+            self.y_total = net_forces_in_y
+            is_in_y_equllibrium = True
+        
+        return is_in_y_equllibrium
+
+    def is_in_z_equllibrium(self):
+        
+        net_forces_in_z =  self._get_net_forces_in_dir('z')
+        if net_forces_in_z:
+            self.z_total = net_forces_in_z
+            is_in_z_equllibrium = False
+        else:
+            self.z_total = net_forces_in_z
+            is_in_z_equllibrium = True
+        
+        return is_in_z_equllibrium
+
+    def is_in_stable_equllibrium(self):
+        
+        self._is_in_stable_equllibrium = False
+        if self.is_in_x_equllibrium()\
+             and self.is_in_y_equllibrium() and self.is_in_z_equllibrium():
+            self.is_in_stable_equllibrium = True
+
+
+        return self.is_in_stable_equllibrium
+
     def __repr__(self):
         return f"Beam between nodes {self.node1.id} , {self.node2.id} with length {self.length}"
 
     def __str__(self):
-        return f"Beam between nodes {self.node1.id} , {self.node2.id} with length {self.length}"
+        return f"Beam between\
+             nodes {self.node1.id} , {self.node2.id} with length {self.length}"
 
 
-    def is_in_x_equllibrium():
-        pass
-    def is_in_y_equllibrium():
-        pass
-    def is_in_z_equllibrium():
-        pass
-
-    def is_in_stable_equllibrium(self):
-        
-        self.is_in_stable_equllibrium = False
-        if self.is_in_x_equllibrium()\
-             and self.is_in_y_equllibrium() and self.is_in_z_equllibrium() :
-            self.is_in_stable_equllibrium = True
-        
-        return self.is_in_stable_equllibrium
-
-
-            
 if __name__ == '__main__':
 
     density=1
@@ -130,7 +184,11 @@ if __name__ == '__main__':
     beam_12 = Beam(1,'beam_12',node1=node1,node2=node2)
     print(beam_12)
 
+    beam_12.node1.forces = [10,-1,1]
+    beam_12.node2.forces = [-10,1,2]
 
+    beam_12_in_eqm = beam_12.stable_static_equilibrium
+    print(beam_12_in_eqm)
 
 
 
