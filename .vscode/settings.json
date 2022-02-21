@@ -8,4 +8,20 @@
         "--min-line-length=80",
     ],
     "python.dataScience.sendSelectionToInteractiveWindow": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./statics",
+        "-p",
+        "*test*.py"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "workbench.colorCustomizations": {
+        "tab.activeBorder": "#ff0000",
+        "tab.unfocusedActiveBorder": "#000000"
+    },
+    "python.testing.pytestArgs": [
+        "statics"
+    ]
 }
