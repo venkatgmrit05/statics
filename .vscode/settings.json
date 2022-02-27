@@ -11,7 +11,7 @@
     "python.testing.unittestArgs": [
         "-v",
         "-s",
-        ".",
+        "./statics",
         "-p",
         "*test*.py"
     ],
@@ -23,8 +23,5 @@
     },
     "python.testing.pytestArgs": [
         "statics"
-    ],
-    "python.analysis.extraPaths": [
-        "./statics/scripts"
     ]
 }
