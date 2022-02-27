@@ -8,9 +8,6 @@ import pysnooper
 
 tol = 6
 
-
-
-
 class Node:
 
     def __init__(self, id, point, forces =[0,0,0],moments =[0,0,0]):
@@ -32,23 +29,30 @@ class Node:
     def connect(self,entity):#TODO consider creatng entity abstract class
 
         if isinstance(entity,Node):
-            self.set_connection_node_node(entity)
-        # if isinstance(entity,Beam): # TODO why? doesnt make sense
-            self.set_connection_node_beam(entity) #TODO update newly connected beams
-            self._transmit_connections()#TODO apply connecions to previously existing connections
+            _connected_nodes = [self]
+            _connected_nodes.extend(self.connected_nodes)
+            
+            if entity not in _connected_nodes:
+                for _node in _connected_nodes: 
+                    _node.set_connection_node_node(entity)
+                #     self.set_connection_node_node(entity)
+                # # if isinstance(entity,Beam): # TODO why? doesnt make sense
+                #     self.set_connection_node_beam(entity) #TODO update newly connected beams
+                #     # self._transmit_connections()#TODO apply connecions to previously existing connections
 
     def set_connection_node_node(self, node_to_connect):
 
-        self._collect_node_id(node_to_connect) 
-        self._collect_node(node_to_connect)
-        self._match_node_coordinates(node_to_connect)
-        self._match_node_material(node_to_connect)
-        self._match_node_forces(node_to_connect)
-        self._match_node_moments(node_to_connect)
+        if node_to_connect not in self.connected_nodes:
+            self._collect_node_id(node_to_connect) 
+            self._collect_node(node_to_connect)
+            self._match_node_coordinates(node_to_connect)
+            self._match_node_material(node_to_connect)
+            self._match_node_forces(node_to_connect)
+            self._match_node_moments(node_to_connect)
 
-        #transmit changes to node2
-        node_to_connect._collect_node_id(self)
-
+            #transmit changes to node2
+            node_to_connect._collect_node_id(self)
+            node_to_connect._collect_node(self)
     # @pysnooper.snoop()
     def _transmit_connections(self):
 
@@ -64,7 +68,6 @@ class Node:
             for _n2 in _connected_nodes:
                 _n1.connect(_n2)
 
-
     def set_connection_node_beam(self,beam):
         pass
 
@@ -73,12 +76,18 @@ class Node:
         self.coordinates = node_to_match.coordinates
 
     def _collect_node(self,node_to_match):
+        # TODO possible infinite loop ; consider placing
+        # pre-existing check
+        if node_to_match not in self.connected_nodes:
+            self.connected_nodes.append(node_to_match)
 
-        self.connected_nodes.append(node_to_match)
     # @pysnooper.snoop()
     def _collect_node_id(self, node_to_match):
 
-        self.connected_node_ids.append(node_to_match.id)
+        # TODO possible infinite loop ; consider placing
+        # pre-existing check
+        if node_to_match.id not in self.connected_node_ids:
+            self.connected_node_ids.append(node_to_match.id)
 
     def _match_node_material(self,node_to_match):
         
@@ -97,10 +106,10 @@ class Node:
         node_to_match.moments = _resultant_moments
 
     def __str__(self):
-        return f"node {self.id} at {self.coordinates}"
+        return f"node {self.id}"
     
     def __repr__(self):
-        return f"node {self.id} at {self.coordinates}"
+        return f"node {self.id}"
 
 if __name__ == '__main__':
     print('ok')
