@@ -1,12 +1,19 @@
 import unittest
 import pytest
 import random
+import sys
+import os
+
+path_to_module = r".\statics\scripts"
+sys.path.append(path_to_module)
 
 
-from statics.statics.scripts.nodes import Node
-from statics.statics.scripts.points import Point
-from statics.statics.scripts.beams import Beam
-from statics.statics.scripts.materials import Material
+
+from nodes import Node
+from beams import Beam
+from materials import Material
+from points import Point
+
 
 class TestNodes(unittest.TestCase):
 
@@ -96,18 +103,24 @@ class TestNodes(unittest.TestCase):
     variables_to_display.extend([n1.connected_nodes,n2.connected_nodes])
     # display_variables(variables_to_display)
 
+    def test_dothis(self):
+
+        print("!!!!!")
+
+
 
     def test_connect_3nodes(self,n2=n2,n3=n3,n5=n5):
 
         n2.connect(n3)
         n3.connect(n5)
         
-        self.assertIn(n2.id,n3.connected_nodes)
-        self.assertIn(n2.id,n5.connected_nodes)
-        self.assertIn(n3.id,n2.connected_nodes)
-        self.assertIn(n3.id,n5.connected_nodes)
-        self.assertIn(n5.id,n3.connected_nodes)
-        self.assertIn(n5.id,n2.connected_nodes)
+        self.assertIn(n2.id,n3.connected_node_ids)
+        self.assertIn(n2.id,n5.connected_node_ids)
+        self.assertIn(n3.id,n2.connected_node_ids)
+        self.assertIn(n3.id,n5.connected_node_ids)
+        self.assertIn(n5.id,n3.connected_node_ids)
+        self.assertIn(n5.id,n2.connected_node_ids)
+
 
     def test_connect_2nodes(self,n2=n2,n3=n3):
 
@@ -122,4 +135,7 @@ class TestNodes(unittest.TestCase):
 
 if __name__ == '__main__':
 
-    unittest.TestNodes()
+    unittest.main()
+    # unittest.TestNodes()
+    # TestNodes()
+    

@@ -64,7 +64,6 @@ class Node:
             for _n2 in _connected_nodes:
                 _n1.connect(_n2)
 
-
     def set_connection_node_beam(self,beam):
         pass
 
@@ -97,10 +96,10 @@ class Node:
         node_to_match.moments = _resultant_moments
 
     def __str__(self):
-        return f"node {self.id} at {self.coordinates}"
+        return f"node {self.id}"
     
     def __repr__(self):
-        return f"node {self.id} at {self.coordinates}"
+        return f"node {self.id}"
 
 if __name__ == '__main__':
     print('ok')

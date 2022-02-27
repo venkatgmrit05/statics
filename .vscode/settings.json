@@ -11,7 +11,7 @@
     "python.testing.unittestArgs": [
         "-v",
         "-s",
-        "./statics",
+        ".",
         "-p",
         "*test*.py"
     ],

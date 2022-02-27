@@ -2,15 +2,26 @@
 import numpy as np
 import pandas as pd
 import random
+import sys
+import os
+
+cfp = r'D:\Data\OfficeWorkspace-20191016T044923Z-001\OfficeWorkspace\statics'
+sys.path.append(cfp)
 
 
-from beams import Beam
-from nodes import Node
-from materials import Material
-from points import Point
+from statics.scripts.nodes import Node
+from statics.scripts.beams import Beam
+from statics.scripts.materials import Material
+from statics.scripts.points import Point
 
 
 if __name__ == "__main__":
+
+    # rfp = os.path.realpath(__file__)
+    # dirname = os.path.dirname(rfp)
+    # sys.path.append("..\statics")
+
+
     variables_to_display =[]
     # @pysnooper.snoop()
     def display_variables(_list):
@@ -90,8 +101,8 @@ if __name__ == "__main__":
 
     variables_to_display.extend([n1,n2,n1.forces,n2.forces,n2.forces])
 
-    # n2.connect(n3)
-    # n3.connect(n5)
+    n2.connect(n3)
+    n3.connect(n5)
 
     variables_to_display.extend([n1,n2,n1.forces,n2.forces,n2.forces])
     variables_to_display.extend([n1.connected_nodes,n2.connected_nodes])
