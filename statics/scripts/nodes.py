@@ -29,24 +29,30 @@ class Node:
     def connect(self,entity):#TODO consider creatng entity abstract class
 
         if isinstance(entity,Node):
-            # if entity not in self.connected_nodes:
-            self.set_connection_node_node(entity)
-        # if isinstance(entity,Beam): # TODO why? doesnt make sense
-            self.set_connection_node_beam(entity) #TODO update newly connected beams
-            self._transmit_connections()#TODO apply connecions to previously existing connections
+            _connected_nodes = [self]
+            _connected_nodes.extend(self.connected_nodes)
+            
+            if entity not in _connected_nodes:
+                for _node in _connected_nodes: 
+                    _node.set_connection_node_node(entity)
+                #     self.set_connection_node_node(entity)
+                # # if isinstance(entity,Beam): # TODO why? doesnt make sense
+                #     self.set_connection_node_beam(entity) #TODO update newly connected beams
+                #     # self._transmit_connections()#TODO apply connecions to previously existing connections
 
     def set_connection_node_node(self, node_to_connect):
 
-        self._collect_node_id(node_to_connect) 
-        self._collect_node(node_to_connect)
-        self._match_node_coordinates(node_to_connect)
-        self._match_node_material(node_to_connect)
-        self._match_node_forces(node_to_connect)
-        self._match_node_moments(node_to_connect)
+        if node_to_connect not in self.connected_nodes:
+            self._collect_node_id(node_to_connect) 
+            self._collect_node(node_to_connect)
+            self._match_node_coordinates(node_to_connect)
+            self._match_node_material(node_to_connect)
+            self._match_node_forces(node_to_connect)
+            self._match_node_moments(node_to_connect)
 
-        #transmit changes to node2
-        node_to_connect._collect_node_id(self)
-        node_to_connect._collect_node(self)
+            #transmit changes to node2
+            node_to_connect._collect_node_id(self)
+            node_to_connect._collect_node(self)
     # @pysnooper.snoop()
     def _transmit_connections(self):
 

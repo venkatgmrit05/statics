@@ -77,6 +77,10 @@ if __name__ == "__main__":
     f4 = forces_dict['force4']
     f5 = forces_dict['force5']
     f6 = forces_dict['force6']
+    f7 = forces_dict['force7']
+    f8 = forces_dict['force8']
+    f9 = forces_dict['force9']
+    f10 = forces_dict['force10']
     # points = {}
 
     # Point objects
@@ -86,6 +90,11 @@ if __name__ == "__main__":
     p4 = Point(4,points_dict['point4'],steel)
     p5 = Point(5,points_dict['point5'],steel)
     p6 = Point(6,points_dict['point6'],steel)
+    p7 = Point(7,points_dict['point7'],steel)
+    p8 = Point(8,points_dict['point8'],steel)
+    p9 = Point(9,points_dict['point9'],steel)
+    p10 = Point(10,points_dict['point10'],steel)
+
     # Node objects
     n1 = Node(1,p1,forces=f1)
     n2 = Node(2,p2,forces=f2)
@@ -93,22 +102,33 @@ if __name__ == "__main__":
     n4 = Node(4,p4,forces=f4)
     n5 = Node(5,p5,forces=f5)
     n6 = Node(6,p6,forces=f6)
+    n7 = Node(7,p7,forces=f7)
+    n8 = Node(8,p8,forces=f8)
+    n9 = Node(9,p9,forces=f9)
+    n10 = Node(10,p10,forces=f10)
 
     # Beam objects
-    b1 = Beam(12,'b1',node1=n1,node2=n2)
-    b2 = Beam(23,'b2',node1=n3,node2=n4)
-    b3 = Beam(34,'b3',node1=n5,node2=n6)
+    b1 = Beam(1,'b1',node1=n1,node2=n2)
+    b2 = Beam(2,'b2',node1=n3,node2=n4)
+    b3 = Beam(3,'b3',node1=n5,node2=n6)
+    b4 = Beam(4,'b4',node1=n7,node2=n8)
+    b5 = Beam(5,'b5',node1=n9,node2=n10)
 
     variables_to_display.extend([n1,n2,n1.forces,n2.forces,n2.forces])
 
     n2.connect(n3)
     n3.connect(n5)
+    n5.connect(n7)
+    n7.connect(n9)
 
     variables_to_display.extend([n1,n2,n1.forces,n2.forces,n2.forces])
     variables_to_display.extend([n1.connected_nodes,n2.connected_nodes])
     # display_variables(variables_to_display)
 
-
+    for _n in [n2,n3,n5,n7,n9]:
+        print(f" connected ids for {_n} >> {_n.connected_node_ids}")
+        print(f" connected nodes for {_n} >>  {_n.connected_nodes}")
+        print(f" node coords for  {_n} >> {_n.coordinates}",end='\n\n')
 
     # count = 0
     # nodes_dict = {}
