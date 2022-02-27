@@ -8,9 +8,6 @@ import pysnooper
 
 tol = 6
 
-
-
-
 class Node:
 
     def __init__(self, id, point, forces =[0,0,0],moments =[0,0,0]):
@@ -32,6 +29,7 @@ class Node:
     def connect(self,entity):#TODO consider creatng entity abstract class
 
         if isinstance(entity,Node):
+            # if entity not in self.connected_nodes:
             self.set_connection_node_node(entity)
         # if isinstance(entity,Beam): # TODO why? doesnt make sense
             self.set_connection_node_beam(entity) #TODO update newly connected beams
@@ -48,7 +46,7 @@ class Node:
 
         #transmit changes to node2
         node_to_connect._collect_node_id(self)
-
+        node_to_connect._collect_node(self)
     # @pysnooper.snoop()
     def _transmit_connections(self):
 
@@ -72,12 +70,18 @@ class Node:
         self.coordinates = node_to_match.coordinates
 
     def _collect_node(self,node_to_match):
+        # TODO possible infinite loop ; consider placing
+        # pre-existing check
+        if node_to_match not in self.connected_nodes:
+            self.connected_nodes.append(node_to_match)
 
-        self.connected_nodes.append(node_to_match)
     # @pysnooper.snoop()
     def _collect_node_id(self, node_to_match):
 
-        self.connected_node_ids.append(node_to_match.id)
+        # TODO possible infinite loop ; consider placing
+        # pre-existing check
+        if node_to_match.id not in self.connected_node_ids:
+            self.connected_node_ids.append(node_to_match.id)
 
     def _match_node_material(self,node_to_match):
         
