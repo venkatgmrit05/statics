@@ -7,8 +7,6 @@ import os
 path_to_module = r".\statics\scripts"
 sys.path.append(path_to_module)
 
-
-
 from nodes import Node
 from beams import Beam
 from materials import Material
