@@ -5,8 +5,8 @@ import random
 import sys
 import os
 
-cfp = r'D:\Data\OfficeWorkspace-20191016T044923Z-001\OfficeWorkspace\statics'
-sys.path.append(cfp)
+# cfp = r'D:\Data\OfficeWorkspace-20191016T044923Z-001\OfficeWorkspace\statics'
+# sys.path.append(cfp)
 
 
 from statics.scripts.nodes import Node
