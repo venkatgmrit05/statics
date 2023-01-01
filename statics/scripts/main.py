@@ -4,9 +4,14 @@ from statics.scripts.materials import Material
 from statics.scripts.beams import Beam
 from statics.scripts.nodes import Node
 
-import numpy as np
-import pandas as pd
+# import numpy as np
+# import pandas as pd
 import random
+import sys
+# import os
+
+cfp = r'D:\Data\OfficeWorkspace-20191016T044923Z-001\OfficeWorkspace\statics'
+sys.path.append(cfp)
 
 
 if __name__ == "__main__":
