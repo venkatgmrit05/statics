@@ -14,7 +14,7 @@ class Node:
     def __init__(self, id, point, forces=[0, 0, 0], moments=[0, 0, 0]):
 
         self.id = id
-        self.material = point.material
+        self.material = self.material
         self.coordinates = point.coordinates
         self.connected = True
         self.connected_nodes = []

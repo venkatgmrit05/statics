@@ -13,7 +13,7 @@ class Point:
         self.id = id
         self.coordinates = np.array(coordinates)
         self.x, self.y, self.z = self.coordinates
-        self.material = material
+        # self.material = material
 
     def __str__(self):
         return f"point {self.id} at {self.coordinates}"
