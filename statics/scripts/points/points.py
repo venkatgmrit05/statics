@@ -8,7 +8,7 @@ import numpy as np
 
 class Point:
 
-    def __init__(self, id, coordinates, material):
+    def __init__(self, id, coordinates):
 
         self.id = id
         self.coordinates = np.array(coordinates)

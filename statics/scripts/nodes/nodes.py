@@ -11,10 +11,11 @@ tol = 6
 
 class Node:
 
-    def __init__(self, id, point, forces=[0, 0, 0], moments=[0, 0, 0]):
+    def __init__(self,
+                 id, point, material, forces=[0, 0, 0], moments=[0, 0, 0]):
 
         self.id = id
-        self.material = self.material
+        self.material = material
         self.coordinates = point.coordinates
         self.connected = True
         self.connected_nodes = []
@@ -88,7 +89,7 @@ class Node:
             self.connected_nodes.append(node_to_match)
 
         self.connected_nodes.append(node_to_match)
-        
+
     # @pysnooper.snoop()
     def _collect_node_id(self, node_to_match):
 

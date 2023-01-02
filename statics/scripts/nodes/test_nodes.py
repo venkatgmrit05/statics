@@ -1,7 +1,9 @@
-from points import Point
-from materials import Material
-from beams import Beam
-from nodes import Node
+
+# from statics.scripts.points import Point()
+from statics.scripts.points.points import Point
+from statics.scripts.materials.materials import Material
+from statics.scripts.beams.beams import Beam
+from statics.scripts.nodes.nodes import Node
 import unittest
 # import pytest
 import random
@@ -30,12 +32,12 @@ class TestNodes(unittest.TestCase):
                      ultimate_strength, poisson_ratio)
 
     coordinates1 = [1, 1, 1]
-    point1 = Point(1, coordinates1, steel)
-    node1 = Node(1, point1)
+    point1 = Point(1, coordinates1)
+    node1 = Node(1, point1, steel)
 
     coordinates2 = [2, 2, 2]
-    point2 = Point(2, coordinates2, steel)
-    node2 = Node(2, point2)
+    point2 = Point(2, coordinates2)
+    node2 = Node(2, point2, steel)
 
     beam_12 = Beam(1, 'beam_12', node1=node1, node2=node2)
     print(beam_12)
@@ -73,19 +75,19 @@ class TestNodes(unittest.TestCase):
     # points = {}
 
     # Point objects
-    p1 = Point(1, points_dict['point1'], steel)
-    p2 = Point(2, points_dict['point2'], steel)
-    p3 = Point(3, points_dict['point3'], steel)
-    p4 = Point(4, points_dict['point4'], steel)
-    p5 = Point(5, points_dict['point5'], steel)
-    p6 = Point(6, points_dict['point6'], steel)
+    p1 = Point(1, points_dict['point1'])
+    p2 = Point(2, points_dict['point2'])
+    p3 = Point(3, points_dict['point3'])
+    p4 = Point(4, points_dict['point4'])
+    p5 = Point(5, points_dict['point5'])
+    p6 = Point(6, points_dict['point6'])
     # Node objects
-    n1 = Node(1, p1, forces=f1)
-    n2 = Node(2, p2, forces=f2)
-    n3 = Node(3, p3, forces=f3)
-    n4 = Node(4, p4, forces=f4)
-    n5 = Node(5, p5, forces=f5)
-    n6 = Node(6, p6, forces=f6)
+    n1 = Node(1, p1, forces=f1, material=steel)
+    n2 = Node(2, p2, forces=f2, material=steel)
+    n3 = Node(3, p3, forces=f3, material=steel)
+    n4 = Node(4, p4, forces=f4, material=steel)
+    n5 = Node(5, p5, forces=f5, material=steel)
+    n6 = Node(6, p6, forces=f6, material=steel)
 
     # Beam objects
     b1 = Beam(12, 'b1', node1=n1, node2=n2)

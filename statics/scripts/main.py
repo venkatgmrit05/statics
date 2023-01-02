@@ -1,8 +1,8 @@
 # from statics.statics.scripts.beams
-from statics.scripts.points import Point
-from statics.scripts.materials import Material
-from statics.scripts.beams import Beam
-from statics.scripts.nodes import Node
+from statics.scripts.points.points import Point
+from statics.scripts.materials.materials import Material
+from statics.scripts.beams.beams import Beam
+from statics.scripts.nodes.nodes import Node
 
 # import numpy as np
 # import pandas as pd
@@ -32,12 +32,12 @@ if __name__ == "__main__":
                      ultimate_strength, poisson_ratio)
 
     coordinates1 = [1, 1, 1]
-    point1 = Point(1, coordinates1, steel)
-    node1 = Node(1, point1)
+    point1 = Point(1, coordinates1)
+    node1 = Node(1, point1, steel)
 
     coordinates2 = [2, 2, 2]
-    point2 = Point(2, coordinates2, steel)
-    node2 = Node(2, point2)
+    point2 = Point(2, coordinates2)
+    node2 = Node(2, point2, steel)
 
     beam_12 = Beam(1, 'beam_12', node1=node1, node2=node2)
     print(beam_12)
@@ -72,31 +72,35 @@ if __name__ == "__main__":
     f4 = forces_dict['force4']
     f5 = forces_dict['force5']
     f6 = forces_dict['force6']
+    f7 = forces_dict['force7']
+    f8 = forces_dict['force8']
+    f9 = forces_dict['force9']
+    f10 = forces_dict['force10']
     # points = {}
 
     # Point objects
-    p1 = Point(1, points_dict['point1'], steel)
-    p2 = Point(2, points_dict['point2'], steel)
-    p3 = Point(3, points_dict['point3'], steel)
-    p4 = Point(4, points_dict['point4'], steel)
-    p5 = Point(5, points_dict['point5'], steel)
-    p6 = Point(6, points_dict['point6'], steel)
-    p7 = Point(7, points_dict['point7'], steel)
-    p8 = Point(8, points_dict['point8'], steel)
-    p9 = Point(9, points_dict['point9'], steel)
-    p10 = Point(10, points_dict['point10'], steel)
+    p1 = Point(1, points_dict['point1'])
+    p2 = Point(2, points_dict['point2'])
+    p3 = Point(3, points_dict['point3'])
+    p4 = Point(4, points_dict['point4'])
+    p5 = Point(5, points_dict['point5'])
+    p6 = Point(6, points_dict['point6'])
+    p7 = Point(7, points_dict['point7'])
+    p8 = Point(8, points_dict['point8'])
+    p9 = Point(9, points_dict['point9'])
+    p10 = Point(10, points_dict['point10'])
 
     # Node objects
-    n1 = Node(1, p1, forces=f1)
-    n2 = Node(2, p2, forces=f2)
-    n3 = Node(3, p3, forces=f3)
-    n4 = Node(4, p4, forces=f4)
-    n5 = Node(5, p5, forces=f5)
-    n6 = Node(6, p6, forces=f6)
-    n7 = Node(7, p7, forces=f7)
-    n8 = Node(8, p8, forces=f8)
-    n9 = Node(9, p9, forces=f9)
-    n10 = Node(10, p10, forces=f10)
+    n1 = Node(1, p1, forces=f1, material=steel)
+    n2 = Node(2, p2, forces=f2, material=steel)
+    n3 = Node(3, p3, forces=f3, material=steel)
+    n4 = Node(4, p4, forces=f4, material=steel)
+    n5 = Node(5, p5, forces=f5, material=steel)
+    n6 = Node(6, p6, forces=f6, material=steel)
+    n7 = Node(7, p7, forces=f7, material=steel)
+    n8 = Node(8, p8, forces=f8, material=steel)
+    n9 = Node(9, p9, forces=f9, material=steel)
+    n10 = Node(10, p10, forces=f10, material=steel)
 
     # Beam objects
     b1 = Beam(1, 'b1', node1=n1, node2=n2)
