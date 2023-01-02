@@ -72,10 +72,6 @@ if __name__ == "__main__":
     f4 = forces_dict['force4']
     f5 = forces_dict['force5']
     f6 = forces_dict['force6']
-    f7 = forces_dict['force7']
-    f8 = forces_dict['force8']
-    f9 = forces_dict['force9']
-    f10 = forces_dict['force10']
     # points = {}
 
     # Point objects
@@ -111,10 +107,8 @@ if __name__ == "__main__":
 
     variables_to_display.extend([n1, n2, n1.forces, n2.forces, n2.forces])
 
-    n2.connect(n3)
-    n3.connect(n5)
-    n5.connect(n7)
-    n7.connect(n9)
+    # n2.connect(n3)
+    # n3.connect(n5)
 
     variables_to_display.extend([n1, n2, n1.forces, n2.forces, n2.forces])
     variables_to_display.extend([n1.connected_nodes, n2.connected_nodes])

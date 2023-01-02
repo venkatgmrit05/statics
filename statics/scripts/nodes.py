@@ -87,13 +87,12 @@ class Node:
         if node_to_match not in self.connected_nodes:
             self.connected_nodes.append(node_to_match)
 
+        self.connected_nodes.append(node_to_match)
+        
     # @pysnooper.snoop()
     def _collect_node_id(self, node_to_match):
 
-        # TODO possible infinite loop ; consider placing
-        # pre-existing check
-        if node_to_match.id not in self.connected_node_ids:
-            self.connected_node_ids.append(node_to_match.id)
+        self.connected_node_ids.append(node_to_match.id)
 
     def _match_node_material(self, node_to_match):
 
@@ -115,7 +114,7 @@ class Node:
         return f"node {self.id}"
 
     def __repr__(self):
-        return f"node {self.id}"
+        return f"node {self.id} at {self.coordinates}"
 
 
 if __name__ == '__main__':
