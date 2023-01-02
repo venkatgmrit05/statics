@@ -7,7 +7,7 @@ import numpy as np
 # import json
 
 # json.load(r".")
-tol = 6
+tol = 6  # TODO should be controlled in config file
 
 
 class Beam:
@@ -52,7 +52,7 @@ class Beam:
 
     def _get_net_forces_in_dir(self, _dir):
 
-        dict_dir = {'x': 0, 'y': 1, 'z': 2}
+        dict_dir = {'x': 0, 'y': 1, 'z': 2}  # TODO should be global attr
 
         forces_in_dir = list(zip(
             self.node1.forces, self.node2.forces))[dict_dir[_dir]]
@@ -127,3 +127,19 @@ class Beam:
     def __str__(self):
         return f"Beam between\
              nodes {self.node1.id} , {self.node2.id} with length {self.length}"
+
+
+if __name__ == "__main__":
+    # TODO create a test case
+    # TODO add comprehensive tests
+    # XXX write out full doc on how the beam forces and  moments are computed
+    '''
+    TODO
+    i dont see any place wherr moments are being compouted. maybe they arent 
+    needed because this is simply a beam so alinear sum of focres and moments 
+    is sufficeint.
+    asceratin this
+    create a ticket and close when done for proof of work
+
+
+    '''
