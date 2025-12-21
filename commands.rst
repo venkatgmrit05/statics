@@ -6,3 +6,5 @@ $ git checkout master
 $ git pull
 $ git merge my-feature-branch
 $ git log
+
+# python setup.py develop
